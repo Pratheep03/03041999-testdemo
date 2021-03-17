@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Test</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="This is an example dashboard created using build-in elements and components."
+    />
+    <link
+      rel="icon"
+      href="https://img.icons8.com/bubbles/50/000000/question-mark.png"
+      type="image/icon type"
+    />
+    
+    
+    <script
+      src="https://apis.google.com/js/platform.js?onload=onLoad"
+      async
+      defer
+    ></script>
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link href="quiz.css" rel="stylesheet" /> 
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    
+    <script type="text/javascript" src="utils.js"></script>
+    
+    
+    <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML-full">
+    </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css' rel='stylesheet'> 
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> 
+<!--<script>
+  $(function(){
+    $('.btn-area input').click(function(){
+      $(this).addClass('selected').siblings().removeClass('selected');
+    });
+  });
+</script> -->
+<style>
+  h1{
+    font-size: 22px;
+  }
+  .qs{
+  border-radius: 13px;
+  border: 0;
+  color:#000000;
+}
+.btn-sub{
+  background-color: #41bb10; 
+  background-image: linear-gradient(#8ef34b, #41bb10);
+  color:#ffffff;
+  padding: 7px;
+  height: -9px;
+  width: 110px;
+  border-radius: 12px;
+  border: 0;
+}
+.qv{
+    /*height: 40px;
+    width: 50px;
+    border-radius: 13px;*/
+    height: 30px;
+    width: 40px;
+    border-radius: 8px;
+    /* padding: 0; */
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 0;
+  }
+  .btn-time{
+  padding: 3px;
+  border-radius: 7px;
+  background-color: hsl(52deg 100% 50%);
+}
+h5{
+  margin-top: 4px;
+}
+.info-img{
+  margin-left: 125px;
+}
+#Palette-show{
+  display: none;
+  height: 60px;
+  background: #007bff;
+  color: #ffffff;
+  margin-top: 16px;
+
+}
+.fa-window-minimize{
+  font-size: 22px;
+}
+</style>
+  </head>
+<body>
+
+
+
+<div class="quiz" style="margin-top: 85px;">
+<div class="d-grid"> 
+  <ul class="details">
+      <li id="test-title"> &nbsp; >><span> </span></li>
+      <li>Test Duration : <span id="test-duration"></span></li>
+      <li>Total Questions : <span id="total_questions"></span></li>
+      <!-- <li id="timer"></li> -->
+      <li>Remaining Time : <span><button class="btn btn-time" id="timer-label"></button></span></li>
+    </ul>
+<div class="submit-btn">
+<button type="button" class="btn btn-primary btn-sub" onclick="submit()">Submit</button> </div>
+</div>
+<div class="quizin">
+<div class="d-grid"> 
+  <div class="left-box mt-3"> 
+    <div class="card" id="card"> 
+      <div class="card-head"> 
+        <!-- <button type="button" onclick="prevQn()">Previous</button> -->
+        <button id="pre" type="button" onclick="prevQn()"><i class="fas fa-angle-double-left"></i> Prev</button>  
+        <h1>Question No : <span id="Questions"></span></h1>
+        <!-- <button type="button" onclick="nextQn()">Next</button> -->
+        <button type="button" id="next" onclick="nextQn()">Next <i class="fas fa-angle-double-right"></i></button> 
+      </div>
+      <div class="card-body"> 
+        <div class="col-md-12"> 
+          <div class="row"> 
+            <div class="col-md-12">
+              <div class="ques">
+                <h4 style="font-size: 22px;" id="qtext"></h4>
+                <!-- <div class="tab-content active">
+                  <h4 style="font-size: 22px;" id="h1" class="tab-pane">jn</h4>
+                </div>  -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12"> 
+            <div class="btn-area">
+              <label><input type="radio" id="ch1" name="choices" value="Choice1" ><span id="ch1-label"></span></label>
+              <label><input type="radio" id="ch2" name="choices" value="Choice2" ><span id="ch2-label"></span></label>
+              <label><input type="radio" id="ch3" name="choices" value="Choice3" ><span id="ch3-label"></span></label>
+              <label><input type="radio" id="ch4" name="choices" value="Choice4" ><span id="ch4-label"></span></label>
+            </div>  
+            <div class="actions-btns-area"> 
+              <button class="btn btn-primary btn-green" onclick="saveClick()">Save</button>
+              <button class="btn btn-secondary btn-maroon" onclick="clearClick()">Clear</button>
+              <button class="btn btn-secondary btn-lavender" onclick="markforreviewClick()">Mark for Review</button>
+              <button class="btn btn-secondary btn-blue" onclick="nextQn()" id="Next">Next</button>
+            </div>        
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="card" id="Palette-show">
+  <div class="card-body">
+    <div class="d-flex justify-content-around" style="margin-top: -11px;">
+      <h5 class="ml-4">Question Palette</h5>
+      <i class="fa fa-window-restore" aria-hidden="true" onclick="paletteShow()" style="margin-top: 5px;font-size: 23px;"></i>
+    </div>
+  </div>
+</div>
+  <div class="right-box mt-3" id="right-box"> 
+    <div class="card"> 
+      <div class="card-head"> 
+         <h5 class="ml-4">Question Palette</h5>
+
+         <i class="fa fa-window-minimize" aria-hidden="true" onclick="paletteHide()"></i>
+      </div>
+      <div class="card-body">
+        <!-- <div class="nav nav-tabs" style="display: grid;border-bottom: 0;"> -->
+          <!-- <li class="active"><a data-toggle="tab" href="#home">Home</a></li> -->
+        <div class="btn-collections" id="question_palette"> 
+          
+        </div>
+        <hr>
+        <div class="row"> 
+        <div class="col-md-6"> 
+          <div class="row"> 
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary btn-green qv"> </button>
+            </div>
+            <div class="col-md-9">
+              <label class="label">Answered</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6"> 
+          <div class="row"> 
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary btn-maroon qv"> </button>
+            </div>
+            <div class="col-md-9">
+              <label class="label">Not Answered</label>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="row mt10"> 
+        <div class="col-md-6"> 
+          <div class="row"> 
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary btn-yellow qv"> </button>
+            </div>
+            <div class="col-md-9">
+              <label class="label">Current</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6"> 
+          <div class="row"> 
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary btn-notanswer qv"> </button>
+            </div>
+            <div class="col-md-9">
+              <label class="label">Not Visited</label>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="row mt10"> 
+        <div class="col-md-7"> 
+          <div class="row"> 
+            <div class="col-md-3">
+              <button type="button"class="btn btn-primary btn-lavender qv"> </button>
+            </div>
+            <div class="col-md-9">
+              <label class="label">Mark for Review</label>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<br>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>
+<script type="text/javascript" src="question.js"></script>
+</body>
+</html>
